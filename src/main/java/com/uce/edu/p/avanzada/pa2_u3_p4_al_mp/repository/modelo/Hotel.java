@@ -41,7 +41,7 @@ public class Hotel {
     @Column(name = "hot_direccion")
     private String direccion;
 
-    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Habitacion> habitaciones;
 
     

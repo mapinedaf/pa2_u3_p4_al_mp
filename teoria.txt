@@ -353,6 +353,14 @@ jpa incluye un tipo de query adicional
 
 join where (Otra forma de hacer un inner join) 
 
+------------------------------------- taller 27------------------------------
+
+
+join fetch , es el tipo de join mas eficiente, si hay que traer toda la informacion de una relacion
+
+
+cuando tengo un objeto modelo que mapea un atributo que no quiero que se mapee dentro de la 
+base de datos debo utilizar la anotacion @Transient de jackarta persistance. util para hacer calculos 
 
 
 

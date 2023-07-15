@@ -1,5 +1,6 @@
 package com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,13 @@ public class HotelServiceImpl implements IHotelService{
     private IHotelRepository hotelRepository;
 
     @Override
-    public void agregar(Hotel Hotel) {
-        this.hotelRepository.insertar(Hotel);
+    public void agregar(Hotel hotel) {
+
+        hotel.getHabitaciones()
+            .stream()
+            .forEach(x ->x.setValorIncluidoIVA(x.getValor().multiply(BigDecimal.valueOf(1.12))));
+
+        this.hotelRepository.insertar(hotel);
     }
 
     @Override
@@ -64,6 +70,11 @@ public class HotelServiceImpl implements IHotelService{
     @Override
     public List<Hotel> buscarWhereJoin() {
         return this.hotelRepository.seleccionarWhereJoin();
+    }
+
+    @Override
+    public List<Hotel> buscarJoinFetch() {
+      return this.hotelRepository.seleccionarFetchJoin();
     }
     
 }

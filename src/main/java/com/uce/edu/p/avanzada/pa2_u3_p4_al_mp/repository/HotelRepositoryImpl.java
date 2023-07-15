@@ -54,9 +54,11 @@ public class HotelRepositoryImpl implements IHotelRepository{
 
         TypedQuery <Hotel> myQuery  = this.entityManager.createQuery(jpql,Hotel.class);
 
-    
+        List<Hotel> list = myQuery.getResultList();
 
-       return myQuery.getResultList();
+        list.stream().forEach(x -> x.getHabitaciones().size());
+
+       return list;
     }
 
     @Override
@@ -114,6 +116,19 @@ public class HotelRepositoryImpl implements IHotelRepository{
     
 
        return myQuery.getResultList();
+    }
+
+    @Override
+    public List<Hotel> seleccionarFetchJoin() {
+        String jpql ="SELECT h FROM Hotel h JOIN FETCH h.habitaciones ha";
+
+        TypedQuery <Hotel> myQuery  = this.entityManager.createQuery(jpql,Hotel.class);
+
+        List<Hotel> list = myQuery.getResultList();
+
+        //list.stream().forEach(x -> x.getHabitaciones().size());
+
+       return list;
     }
     
 }

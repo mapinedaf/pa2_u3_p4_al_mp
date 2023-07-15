@@ -12,11 +12,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Table(name="habitacion")
 @Entity
@@ -38,9 +40,17 @@ public class Habitacion {
     private String numero;
     @Column(name = "hab_valor")
     private BigDecimal valor;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @Transient
+    private BigDecimal valorIncluidoIVA;
+    
+    @ManyToOne()
     @JoinColumn(name = "hab_id_hotel")
     private Hotel hotel;
+    @Override
+    public String toString() {
+        return "Habitacion [id=" + id + ", numero=" + numero + ", valor=" + valor + "]";
+    }
 
 
 }
