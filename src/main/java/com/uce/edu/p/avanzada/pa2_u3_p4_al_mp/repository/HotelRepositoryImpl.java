@@ -126,7 +126,6 @@ public class HotelRepositoryImpl implements IHotelRepository{
 
         List<Hotel> list = myQuery.getResultList();
 
-        //list.stream().forEach(x -> x.getHabitaciones().size());
 
        return list;
     }

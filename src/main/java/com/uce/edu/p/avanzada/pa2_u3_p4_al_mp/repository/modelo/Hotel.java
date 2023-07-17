@@ -2,7 +2,6 @@ package com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo;
 
 import java.util.List;
 
-import org.antlr.v4.runtime.atn.ATNType;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

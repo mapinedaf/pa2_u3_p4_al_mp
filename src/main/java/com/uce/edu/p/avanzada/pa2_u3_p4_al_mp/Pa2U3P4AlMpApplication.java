@@ -9,15 +9,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Habitacion;
-import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Hotel;
-import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service.IHotelService;
+import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Boleto;
+import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Vuelo;
+import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service.IBoletoService;
+import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service.IVueloService;
 
 @SpringBootApplication
 public class Pa2U3P4AlMpApplication implements CommandLineRunner {
 
 	@Autowired
-	IHotelService hotelService;
+	IVueloService vueloService;
+
+	@Autowired
+	IBoletoService boletoService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U3P4AlMpApplication.class, args);
@@ -26,38 +30,107 @@ public class Pa2U3P4AlMpApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Hotel hot1 = Hotel.builder().nombre("Rayito de sol").direccion("av occidental").build();
+		List<Boleto> boletos1 = new ArrayList<>();
 
-		Habitacion h1 = Habitacion.builder().numero("001").hotel(hot1).valor(BigDecimal.valueOf(100)).build();
-		Habitacion h2 = Habitacion.builder().numero("002").hotel(hot1).valor(BigDecimal.valueOf(100)).build();
-		Habitacion h3 = Habitacion.builder().numero("003").hotel(hot1).valor(BigDecimal.valueOf(100)).build();
+		boletos1.add(
+				Boleto.builder()
+						.numero("001")
+						.nombrePasajero("David Estrella")
+						.clase("Economica")
+						.asiento("B-03")
+						.puertaAbordaje("4")
+						.precio(BigDecimal.valueOf(300))
+						.build());
 
-		List<Habitacion> habi = new ArrayList<>();
-		habi.add(h1);
-		habi.add(h2);
-		habi.add(h3);
-		hot1.setHabitaciones(habi);
+		boletos1.add(
+				Boleto.builder()
+						.numero("006")
+						.nombrePasajero("Juan Gonzales")
+						.clase("Negocios")
+						.asiento("C-13")
+						.puertaAbordaje("3")
+						.precio(BigDecimal.valueOf(500))
+						.build());
 
-		System.out.println("---------------------");
-		System.out.println("insertar");
-		hotelService.agregar(hot1);
+		Vuelo vuelo1 = Vuelo.builder()
+				.codigo("MH-001")
+				.origen("LAX")
+				.destino("UIO")
+				.identificadorAvion("bng-004")
+				.boletos(boletos1)
+				.build();
 
-		System.out.println("---------------------");
-		System.out.println("inner join");
+		boletos1.stream().forEach(x -> x.setVuelo(vuelo1));
 
-		this.hotelService.buscarInnerJoin();
-		System.out.println("---------------------");
-		System.out.println("join fetch");
-		List<Hotel> listaHotel = this.hotelService.buscarJoinFetch();
-		;
+		List<Boleto> boletos2 = new ArrayList<>();
 
-		System.out.println("-------------------------------------------------------");
+		boletos2.add(
+				Boleto.builder()
+						.numero("001")
+						.nombrePasajero("Richard Nixon")
+						.clase("Economica")
+						.asiento("B-04")
+						.puertaAbordaje("4")
+						.precio(BigDecimal.valueOf(100))
+						.build());
 
-		listaHotel.stream().forEach(x -> {
-			System.out.println("-***********************************");
-			System.out.println(x.getNombre());
-			x.getHabitaciones().stream().forEach(System.out::println);
-		});
+		Vuelo vuelo2 = Vuelo.builder()
+				.codigo("MJ-034")
+				.origen("GYE")
+				.destino("UIO")
+				.identificadorAvion("bng-101")
+				.boletos(boletos2)
+				.build();
+
+		boletos2.stream().forEach(x -> x.setVuelo(vuelo2));
+
+		Vuelo vuelo3 = Vuelo.builder()
+				.codigo("NA-334")
+				.origen("GYE")
+				.destino("NYC")
+				.identificadorAvion("bng-101")
+				.build();
+
+		// vueloService.agregar(vuelo1);
+		// vueloService.agregar(vuelo2);
+		// vueloService.agregar(vuelo3);
+
+		System.out.println("-----------------------------------");
+		System.out.println("Inner join");
+		System.out.println("1)");
+		vueloService.buscarInnerJoin();
+		System.out.println("2)");
+		boletoService.buscarInnerJoin();
+		System.out.println("-----------------------------------");
+		System.out.println("Right join");
+		System.out.println("1)");
+		vueloService.buscarRightJoin();
+		System.out.println("2");
+		boletoService.buscarRightJoin();
+		System.out.println("-----------------------------------");
+		System.out.println("Left join");
+		System.out.println("1)");
+		vueloService.buscarLeftJoin();
+		System.out.println("2)");
+		boletoService.buscarLeftJoin();
+		System.out.println("-----------------------------------");
+		System.out.println("Full join");
+		System.out.println("1)");
+		vueloService.buscarFullJoin();
+		System.out.println("2)");
+		boletoService.buscarFullJoin();
+		System.out.println("-----------------------------------");
+		System.out.println("Join Where");
+		System.out.println("1)");
+		vueloService.buscarJoinWhere();
+		System.out.println("2)");
+		boletoService.buscarJoinWhere();
+		System.out.println("-----------------------------------");
+		System.out.println("Join Fetch");
+		System.out.println("1)");
+		vueloService.buscarJoinFetch();
+		System.out.println("2)");
+		boletoService.buscarJoinFetch();
 	}
 
 }
