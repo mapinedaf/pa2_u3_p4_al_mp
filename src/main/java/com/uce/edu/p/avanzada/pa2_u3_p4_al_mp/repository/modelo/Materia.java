@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,10 +41,10 @@ public class Materia {
     private String codigo;
 
 
-    @OneToMany(mappedBy = "materia")
+    @OneToMany(mappedBy = "materia",fetch =  FetchType.EAGER)
     private List<Matricula> matriculas;
 
     @ManyToOne()
     @JoinColumn(name = "mate_id_semestre")
-    private Semestre semstre;
+    private Semestre semestre;
 }

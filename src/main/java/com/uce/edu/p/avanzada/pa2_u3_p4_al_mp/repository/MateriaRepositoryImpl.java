@@ -16,7 +16,7 @@ public class MateriaRepositoryImpl  implements IMateriaRepository{
 
     @Override
     public Materia leerPorCodigo(String codigo) {
-        String jpql = "SELECT e FROM Estudiante e WHERE e.cedula = :datoCodigo";
+        String jpql = "SELECT m FROM Materia m WHERE m.codigo = :datoCodigo";
 
         TypedQuery<Materia> query = this.entityManager.createQuery(jpql, Materia.class);
 

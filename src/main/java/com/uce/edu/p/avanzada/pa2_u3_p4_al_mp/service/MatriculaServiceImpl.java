@@ -50,6 +50,9 @@ public class MatriculaServiceImpl implements IMatriculaService {
                     .estudiante(estudiante)
                     .materia(m)
                     .build();
+
+            estudiante.getMatriculas().add(matricula);
+            m.getMatriculas().add( matricula);        
             this.matriculaRepository.insertar(matricula);
         }
 
