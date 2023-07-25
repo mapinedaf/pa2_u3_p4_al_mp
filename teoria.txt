@@ -365,6 +365,71 @@ base de datos debo utilizar la anotacion @Transient de jackarta persistance. uti
 
 
 
+------------------------------------taller 30-------------------------------------
+
+Transacciones en sql: conjunto de operaciones todo o nada en base de datos. 
+dentro del contexto de base de datos no se considear una afectacion sola como transaccion.
+
+Las transaciones se ejecutan de manera secuencial e integra (todo o nada)
+
+se usan cuando se necesita inegridad.
+
+NOSOTROS DEFINIMOS EL ALCANZE DE LA TRANSACCION 
+
+hay escenarios donde no se deben hacer transaciones ej en una factura electronica. 
+Estas facturas se envian al sri, si el sistema esta caido y el envio es parte de la 
+transaccion se cancela toda la creacion de la factura y se empieza se nuevo. lo ideal
+seria separarlo en dos transacciones.
+
+Cuando se hace una transaccion desde un cliente crea una SESION y todo lo que haga
+antes del fin de la transaccion solo se ejecuta en una sesion privada de base de datos, 
+solo cuando se termina se ve reflejado en otras sesiones 
+
+dentro de jpa para poder manejar transacciones existen multiples alcances ie la cantidad
+de sentenias (metoodos) que forman una transaccion SCOPE O ALCANZE
+
+las transaciones se manejan a nivel de logica de negocio pero usando los metodos del repository
+
+ej:
+
+
+@Transaction // se ejecuta en la base de datos un begin en la primer linea implicita
+public void realizarTransferencia( String numOrigen, Strinf numDestino, BigInteger monto)
+
+si todo ocurrio bien al finalizar el metodo se ejecuta un commit, si hay una Exception 
+se ejecuta un rollback. 
+
+hay 6 tipos de scope o propagacion de transacciones
+
+------------------------------------ taller 31----------------------
+Propagaciones/scopes/alcances jpa
+
+
+1)Required: Si existe una traansaccion la aprovecha y si no la crea
+
+2)Requires new: Abre una transaccion y pone en suspenso la anterior una vez que el metodo
+requires new termina se vuelve a la transaccion anterior 
+
+3) Mandatory: Si no existe una transaccion abiera lanza una Exception 
+deberia estar en el repository si son suceptibles de afectar la base de datos
+
+4)suports: si existe una transaccion la aprovecha y si no no crea ninguna 
+
+5) never: si existe una transaccion se lanza un error 
+
+6) not supported: si exist una transaccion la pone en suspenso y se reactiva al salir del metod
+Es util para el select del repository  
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Transferencia;
 
@@ -30,6 +31,7 @@ public class TransferenciaRepositoryImpl implements ITransferenciaRepository {
 
         TypedQuery<Transferencia> mQuery = this.entityManager.createQuery(jpql, Transferencia.class);
 
+        System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
         return mQuery.getResultList();
     }
 

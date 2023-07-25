@@ -1,6 +1,6 @@
 package com.uce.edu.p.avanzada.pa2_u3_p4_al_mp;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,26 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Estudiante;
-import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Materia;
-import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Provincia;
-import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Semestre;
-import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service.IMatriculaService;
-import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service.IProvinciaService;
-import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service.ISemestreService;
+import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.CuentaBancaria;
+import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Propietario;
+import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service.ICuentaBancariaService;
+import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service.ITransferenciaService;
 
 @SpringBootApplication
 public class Pa2U3P4AlMpApplication implements CommandLineRunner {
 
 	@Autowired
-	IProvinciaService provinciaService;
+	ICuentaBancariaService cuentaBancariaService;
 
 	@Autowired
-	ISemestreService semestreService;
-
-	@Autowired
-	IMatriculaService matriculaService;
+	ITransferenciaService transferenciaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U3P4AlMpApplication.class, args);
@@ -36,90 +31,49 @@ public class Pa2U3P4AlMpApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Estudiante e1 = Estudiante.builder()
-				.cedula("12344567890").apellido("Perez").nombre("David").build();
-		Estudiante e2 = Estudiante.builder()
-				.cedula("6453847563").apellido("Perez").nombre("David").build();
-		Estudiante e3 = Estudiante.builder()
-				.cedula("6344475635").apellido("Perez").nombre("David").build();
-		Estudiante e4 = Estudiante.builder()
-				.cedula("1965429587").apellido("Perez").nombre("David").build();
-		Estudiante e5 = Estudiante.builder()
-				.cedula("6323445734").apellido("Perez").nombre("David").build();
+		List<CuentaBancaria> cuentas = new ArrayList<>();
+		cuentas.add(CuentaBancaria.builder()
+				.numero("0017")
+				.saldo(BigDecimal.valueOf(700))
+				.tipo('A')
+				.build());
 
-		ArrayList<Estudiante> estudiantes = new ArrayList<>();
-
-		estudiantes.add(e1);
-		estudiantes.add(e2);
-		estudiantes.add(e3);
-		estudiantes.add(e4);
-		estudiantes.add(e5);
-
-		Provincia provincia = Provincia.builder()
-				.nombre("Pichincha").capital("Quito").region("sierra").build();
-
-		estudiantes.stream().forEach(x -> x.setProvincia(provincia));
-
-		provincia.setEstudiantes(estudiantes);
-
-		//provinciaService.guardar(provincia);
-
-		Semestre semestre = Semestre.builder()
-				.nivelSemetre("Sexto")
-				.fechaInicio(LocalDate.of(2023, 5, 5))
-				.fechaFin(LocalDate.of(2023, 9, 5))
+		Propietario propietario = Propietario.builder()
+				.nombre("Jose")
+				.apellido("Lopez")
+				.cedula("1234531")
+				.cuentas(cuentas)
 				.build();
+		cuentas.get(0).setPropietario(propietario);
 
-		List<Materia> materias = new ArrayList();
+		List<CuentaBancaria> cuentas2 = new ArrayList<>();
+		cuentas2.add(CuentaBancaria.builder()
+				.numero("0317")
+				.saldo(BigDecimal.valueOf(700))
+				.tipo('A')
+				.build());
 
-		materias.add(
-				Materia.builder()
-						.cantidadHoras(40)
-						.nombre("Redes")
-						.codigo("006-RDS")
-						.semestre(semestre)
-						.build());
+		Propietario propietario2 = Propietario.builder()
+				.nombre("Alejandro")
+				.apellido("Loor")
+				.cedula("1857531")
+				.cuentas(cuentas2)
+				.build();
+		cuentas2.get(0).setPropietario(propietario2);
 
-		materias.add(
-				Materia.builder()
-						.cantidadHoras(40)
-						.nombre("Programacion Avanzada 2")
-						.codigo("006-PA2")
-						.semestre(semestre)
-						.build());
-		materias.add(
-				Materia.builder()
-						.cantidadHoras(40)
-						.nombre("Optimizacion")
-						.codigo("006-OPM")
-						.semestre(semestre)
-						.build());
-		materias.add(
-				Materia.builder()
-						.cantidadHoras(40)
-						.nombre("Inteligencia artificial")
-						.codigo("006-IA")
-						.semestre(semestre)
-						.build());
-		materias.add(
-				Materia.builder()
-						.cantidadHoras(40)
-						.nombre("Emprendimiento")
-						.codigo("006-EMP")
-						.semestre(semestre)
-						.build());
-		semestre.setMaterias(materias);
-		//semestreService.guardar(semestre);
-
-		String [] coodMaterias ={"006-RDS","006-PA2","006-OPM","006-IA","006-EMP"};
-
-	
+		//cuentaBancariaService.guardarCuenta(cuentas.get(0));
+		//cuentaBancariaService.guardarCuenta(cuentas2.get(0));
 
 
-		//estudiantes.stream().forEach(e -> matriculaService.generarMatricula(e.getCedula(), coodMaterias));
+		//transferenciaService.realizarTransferencia(cuentas.get(0), cuentas2.get(0), BigDecimal.valueOf(100));
 
-		matriculaService.reporteMatriculas().forEach(System.out::println);
+
+		//transferenciaService.reporteTransferencias().forEach(System.out::println);
+
 		
+		System.out.println(TransactionSynchronizationManager.isActualTransactionActive() +" Main");
+
+		cuentaBancariaService.guardarCuenta(CuentaBancaria.builder().saldo(BigDecimal.valueOf(420)).build());
 	}
 
 }
