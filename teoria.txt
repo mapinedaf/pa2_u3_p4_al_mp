@@ -420,6 +420,17 @@ deberia estar en el repository si son suceptibles de afectar la base de datos
 6) not supported: si exist una transaccion la pone en suspenso y se reactiva al salir del metod
 Es util para el select del repository  
 
+--------------taller 32-------------------------
+
+Solo las ecepciones uncheckeed generan rollback 
+
+
+
+
+
+
+
+
 
 
 

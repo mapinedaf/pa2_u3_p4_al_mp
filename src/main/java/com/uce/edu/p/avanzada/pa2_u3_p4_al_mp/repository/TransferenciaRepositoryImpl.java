@@ -11,6 +11,7 @@ import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Transferencia;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 
 @Repository
 @Transactional
@@ -23,9 +24,11 @@ public class TransferenciaRepositoryImpl implements ITransferenciaRepository {
     public void insertar(Transferencia transferencia) {
 
         this.entityManager.persist(transferencia);
+
     }
 
     @Override
+    @Transactional(value= TxType.REQUIRED)
     public List<Transferencia> leerTransferencias() {
         String jpql = "SELECT t FROM Transferencia t";
 

@@ -9,9 +9,10 @@ import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.CuentaBancaria;
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 
 @Repository
-@Transactional()
+@Transactional(value =  TxType.REQUIRED)
 public class CuentaBancariaRepositoryImpl implements ICuentaBancariaRepository{
 
     @Autowired

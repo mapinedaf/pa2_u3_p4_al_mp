@@ -15,6 +15,9 @@ import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.repository.modelo.Propietario;
 import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service.ICuentaBancariaService;
 import com.uce.edu.p.avanzada.pa2_u3_p4_al_mp.service.ITransferenciaService;
 
+import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
+
 @SpringBootApplication
 public class Pa2U3P4AlMpApplication implements CommandLineRunner {
 
@@ -29,12 +32,13 @@ public class Pa2U3P4AlMpApplication implements CommandLineRunner {
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public void run(String... args) throws Exception {
 
 		List<CuentaBancaria> cuentas = new ArrayList<>();
 		cuentas.add(CuentaBancaria.builder()
 				.numero("0017")
-				.saldo(BigDecimal.valueOf(700))
+				.saldo(BigDecimal.valueOf(300))
 				.tipo('A')
 				.build());
 
@@ -49,7 +53,7 @@ public class Pa2U3P4AlMpApplication implements CommandLineRunner {
 		List<CuentaBancaria> cuentas2 = new ArrayList<>();
 		cuentas2.add(CuentaBancaria.builder()
 				.numero("0317")
-				.saldo(BigDecimal.valueOf(700))
+				.saldo(BigDecimal.valueOf(300))
 				.tipo('A')
 				.build());
 
@@ -61,19 +65,18 @@ public class Pa2U3P4AlMpApplication implements CommandLineRunner {
 				.build();
 		cuentas2.get(0).setPropietario(propietario2);
 
-		//cuentaBancariaService.guardarCuenta(cuentas.get(0));
-		//cuentaBancariaService.guardarCuenta(cuentas2.get(0));
+		cuentaBancariaService.guardarCuenta(cuentas.get(0));
+		cuentaBancariaService.guardarCuenta(cuentas2.get(0));
 
 
-		//transferenciaService.realizarTransferencia(cuentas.get(0), cuentas2.get(0), BigDecimal.valueOf(100));
+		transferenciaService.realizarTransferencia(cuentas.get(0), cuentas2.get(0), BigDecimal.valueOf(400));
 
 
-		//transferenciaService.reporteTransferencias().forEach(System.out::println);
 
 		
 		System.out.println(TransactionSynchronizationManager.isActualTransactionActive() +" Main");
 
-		cuentaBancariaService.guardarCuenta(CuentaBancaria.builder().saldo(BigDecimal.valueOf(420)).build());
+
 	}
 
 }

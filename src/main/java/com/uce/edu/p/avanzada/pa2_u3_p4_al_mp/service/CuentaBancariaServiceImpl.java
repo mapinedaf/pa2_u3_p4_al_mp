@@ -21,16 +21,12 @@ public class CuentaBancariaServiceImpl implements ICuentaBancariaService {
     ICuentaBancaria2Service cuentaBancaria2Service;
 
     @Override
-    @Transactional(value =  TxType.NEVER)
+    @Transactional
     public void guardarCuenta(CuentaBancaria cuentaBancaria) {
         System.out.println(TransactionSynchronizationManager.isActualTransactionActive()+" Service");
-        //cuentaBancaria2Service.prueba();
-        //cuentaBancaria2Service.prueba2();
-        //cuentaBancaria2Service.pruebaSupports();
-        //cuentaBancaria2Service.pruebNotSupported();
-        //this.cuentaBancariaRepository.insertar(cuentaBancaria);
-        cuentaBancaria2Service.pruebaRequired();
-        cuentaBancaria2Service.pruebaRequiresNew();
+
+        this.cuentaBancariaRepository.insertar(cuentaBancaria);
+
 
     }
     @Transactional(value = TxType.NEVER)
