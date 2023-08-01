@@ -31,14 +31,13 @@ public class Main {
         };
         LOG.info("Spplier3 lambda: " + supplier3.getId());
 
-
-        //Metodos referenciados 
+        // Metodos referenciados
 
         MetodoReferenciado metodoReferenciado = new MetodoReferenciado();
 
         IPersonaSupplier<Integer> supplier4 = metodoReferenciado::getId;
 
-         LOG.info("Spplier4 Referenciado: " + supplier4.getId());
+        LOG.info("Spplier4 Referenciado: " + supplier4.getId());
 
         // 2. Consumer
 
@@ -59,18 +58,16 @@ public class Main {
 
         consumer2.accept("Marco Pineda 2");
 
-        //Metodo referenciado 
+        // Metodo referenciado
 
         IPersonaConsumer<String> consumer = metodoReferenciado::consumir;
 
-        LOG.info("Consumer Referenciado: " );
-        LocalTime origin =LocalTime.now();
-         consumer.accept("0123456789");
+        LOG.info("Consumer Referenciado: ");
+        LocalTime origin = LocalTime.now();
+        consumer.accept("0123456789");
         LocalTime fin = LocalTime.now();
 
-        LOG.info("Hilo espero de:"+origin  +" a "+ fin);
-
-
+        LOG.info("Hilo espero de:" + origin + " a " + fin);
 
         // 3. PREDICATE
 
@@ -81,11 +78,10 @@ public class Main {
 
             valor = valor + valor2;
 
-            return valor >=100;
+            return valor >= 100;
         };
 
         IPersonaPredicate<String> predicate3 = letra -> "Marco".contains(letra);
-
 
         LOG.info("Predicate lambda: " + predicate.evaluar(4));
 
@@ -95,38 +91,44 @@ public class Main {
 
         IPersonaBiPredicate<String, String> biPredicate = (string, charr) -> string.contains(charr);
 
-        LOG.info("BiPRedicate lambda: " +biPredicate.eval("marco", "r"));
+        LOG.info("BiPRedicate lambda: " + biPredicate.eval("marco", "r"));
 
-        //metodo referenciado
+        // metodo referenciado
 
         IPersonaPredicate<Integer> predicate4 = metodoReferenciado::predicate;
 
-        LOG.info("Predicate Referenciado: " +predicate4.evaluar(100));
+        LOG.info("Predicate Referenciado: " + predicate4.evaluar(100));
 
+        // 4. Function
 
-        //4. Function
+        IPersonaFuntion<String, Integer> function = num -> String.valueOf(num);
 
-        IPersonaFuntion <String,Integer> function = num -> String.valueOf(num);
+        IPersonaFuntion<String, Integer> function2 = numero -> numero.toString() + "valor";
 
-        IPersonaFuntion <String,Integer> function2 =  numero -> numero.toString()+ "valor";
+        LOG.info("Function lambda: " + function.aplicar(8));
+        LOG.info("Function2 lambda: " + function2.aplicar(10));
 
+        // Metodo referenciado
 
-        LOG.info("Function lambda: " +function.aplicar(8));
-         LOG.info("Function2 lambda: " +function2.aplicar(10));
+        IPersonaFuntion<Character[], String> function3 = metodoReferenciado::function;
 
-        //5. Unary operator 
-        
-        IPersonaUnaryOperator<Integer> unary = numero -> (int)Math.sqrt(numero);
+        LOG.info("Function metodo referenciado: string" +"->" + function3.aplicar("string"));
 
-        LOG.info("Unari lambda: " +unary.aplicar(100));
+        // 5. Unary operator
 
-        IPersonaUnaryOperatorFunction <Integer> unary2 = numero ->(int)Math.sqrt(numero);
+        IPersonaUnaryOperator<Integer> unary = numero -> (int) Math.sqrt(numero);
 
-        LOG.info("Unari Function lambda: " +unary2.aplicar(100));
+        LOG.info("Unari lambda: " + unary.aplicar(100));
 
+        IPersonaUnaryOperatorFunction<Integer> unary2 = numero -> (int) Math.sqrt(numero);
 
+        LOG.info("Unari Function lambda: " + unary2.aplicar(100));
 
-    
+        // Metodo referenciado
+
+        IPersonaUnaryOperator <String> unary3 = metodoReferenciado::unary;
+
+        LOG.info("Unary metodo referenciado: abcd ->"+ unary3.aplicar("abcd"));
 
     }
 }

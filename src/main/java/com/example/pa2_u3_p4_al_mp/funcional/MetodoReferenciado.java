@@ -19,4 +19,30 @@ public class MetodoReferenciado {
 
         return integer%3 ==0;
     }
+
+
+    public Character[] function(String string){
+
+        Character[] chars = new Character[string.length()];
+
+        for(int i =0; i< string.length(); i++){
+            chars[i] = string.charAt(i);
+        }
+
+        return chars;
+    }
+
+    public String unary(String string){
+
+        Character[] chars = function(string);
+
+        StringBuilder builder = new StringBuilder();
+
+        for(Character c : chars){
+
+            builder.append((char)((int)c.charValue()+1));
+
+        }
+        return builder.toString();
+    } 
 }
