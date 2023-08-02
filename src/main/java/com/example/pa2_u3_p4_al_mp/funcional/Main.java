@@ -2,6 +2,10 @@ package com.example.pa2_u3_p4_al_mp.funcional;
 
 import java.time.LocalTime;
 import java.time.temporal.TemporalAmount;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger; // debe ser este pilas
 import org.slf4j.LoggerFactory;
@@ -129,6 +133,54 @@ public class Main {
         IPersonaUnaryOperator <String> unary3 = metodoReferenciado::unary;
 
         LOG.info("Unary metodo referenciado: abcd ->"+ unary3.aplicar("abcd"));
+
+
+        //Metodos highorder
+
+        MetodoHighOrder highOrderSup = new MetodoHighOrder();
+
+        highOrderSup.metodo(supplier);
+
+        highOrderSup.metodo(()-> "gfdf");
+
+        highOrderSup.metodo(metodoReferenciado::getIdHO);
+
+
+        highOrderSup.consumer(consumer, "algo");
+
+        highOrderSup.consumer((x)-> System.out.println(x), "algo");
+
+        highOrderSup.consumer(System.out::println, "algo");
+
+
+        // Interfaces funcionales java
+
+        //1. Suplier
+        
+        Stream <String> stream = Stream.generate(()-> "12345678").limit(10);
+
+        System.out.println(stream);
+
+        //2. Consumer
+
+        List<Integer> enteros = Arrays.asList(1,2,3,4,5,6,7,8);
+
+        enteros.forEach(System.out::println);
+
+        //3.Predicate
+
+
+        enteros.stream().filter((x)-> x >= 5).forEach(x -> LOG.info("valor"+x));
+
+        //4. Function
+
+        enteros.stream().map(x -> "N: "+x+10).forEach(LOG::info);
+
+
+        //5. unary operator 
+
+        stream.map(x -> "N: "+x+10).forEach(LOG::info);
+
 
     }
 }

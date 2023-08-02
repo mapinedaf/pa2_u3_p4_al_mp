@@ -433,9 +433,16 @@ Solo las ecepciones uncheckeed generan rollback
 
 metodos referenciados
 
-mientras yo tengo un metodo que cumpla el contrato yo puedo pasar como una implementacion de 
+mientras yo tengo un metodo que cumpla el contrato yo puedo pasar 
+como una implementacion de 
 una interfaz funcional
 
+taller 35 ----------------------------------------------
+
+metodo highorder son metodos que reciven una implmentacion de una interfaz
+no especifica la implementacion sino la interfaz 
+
+Java implemnta su propias interfaces funcionales. 
 
 
 

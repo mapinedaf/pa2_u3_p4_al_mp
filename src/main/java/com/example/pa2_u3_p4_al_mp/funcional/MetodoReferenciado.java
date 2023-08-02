@@ -5,6 +5,10 @@ public class MetodoReferenciado {
     public Integer getId(){
         return 8;
     }
+        public String getIdHO(){
+        return "h";
+    }
+    
     
 
     public void consumir(String word){
