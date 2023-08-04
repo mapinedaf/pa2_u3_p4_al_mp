@@ -1,5 +1,9 @@
 package com.example.pa2_u3_p4_al_mp.funcional;
 
+import java.time.LocalTime;
+
+
+
 public class MetodoReferenciado {
 
     public Integer getId(){
@@ -12,11 +16,13 @@ public class MetodoReferenciado {
     
 
     public void consumir(String word){
+        System.out.println("Tiempo de inicio: " +LocalTime.now());
         try {
             Thread.sleep(word.length()*1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("Tiempo de fin: " +LocalTime.now());
     }
 
     public boolean predicate(Integer integer){
