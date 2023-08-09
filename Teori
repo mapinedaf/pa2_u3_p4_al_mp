@@ -445,6 +445,37 @@ no especifica la implementacion sino la interfaz
 Java implemnta su propias interfaces funcionales. 
 
 
+-------------------taller 36-----------------------------------------------------
+
+Ejecucion secuencial controller -> service -> repository -> base de datos y de regreso 
+    Se ejecuta bajo un solo hilo (manejo de hilos)
+    funciona de forma sincrona 
+
+La base de la pogramacion multi hilo en java son los streams
+
+------------------------------------------37----------------
+
+la programacion multihilo esta relaconada con la programcion concurrente(gran cantida de datos)
+
+cuansdo se habla de hilos se abren dos temas
+
+    programion sincrona -> hilos (de manera secuencial) no hay garntia que sea el mismo hilo
+    se garantiza que sea secuncial un hilo 
+    sincrono significa que un hilo termina y le da la posta al siguiente (se queda esperando la respuesta)
+    debe haber un incio y un fin para que el siguiente hilo tome la posta
+    
+
+
+    programacion asincrona -> multihilos
+    existe un delta, la variacion de proesamiento de distintos hilos. hay metods en java como los de stream
+    que permiten crear hilos de manera inteligente.  
+
+    @Async para hacer un metodo asincrono y no espere la respuesta 
+
+    para que funcione el async hay que usar en el main @EnableAsync
+
+    tiene sentido esperar cuando hay un retorno, no podemos retornar directamente, hay que apoyarse en una clase
+    completable future
 
 
 
